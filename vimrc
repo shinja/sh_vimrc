@@ -161,7 +161,7 @@ map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
-" Use the arrows to something usefull
+" Use the arrows to something usefull, right left
 map <right> :bn<cr>
 map <left> :bp<cr>
 
@@ -242,5 +242,30 @@ let $kernel_version=system('uname -r | tr -d "\n"')
 set tags+=/lib/modules/$kernel_version/build/tags,/usr/include/tags
 let g:tagbar_width = 35
 nmap <F6> :TagbarToggle<CR> 
+
+""""""""""""""""""""""
+"minibufexpl
+"http://blog.csdn.net/wooin/article/details/1858917
+"https://github.com/fholgado/minibufexpl.vim
+""""""""""""""""""""""
+let g:miniBufExplMapWindowNavVim = 1
+let g:miniBufExplMapWindowNavArrows = 1
+let g:miniBufExplMapCTabSwitchBufs = 1
+let g:miniBufExplModSelTarget = 1 
+let g:miniBufExplorerMoreThanOne = 2
+
+" let g:miniBufExplModSelTarget = 1
+" let g:miniBufExplorerMoreThanOne = 2
+" let g:miniBufExplModSelTarget = 0
+" let g:miniBufExplUseSingleClick = 1
+" let g:miniBufExplMapWindowNavVim = 1
+" let g:miniBufExplVSplit = 25
+" let g:miniBufExplSplitBelow=1
+
+let g:bufExplorerSortBy = "name"
+
+autocmd BufRead,BufNew :call UMiniBufExplorer
+
+map <leader>u :TMiniBufExplorer<cr>
 
 
