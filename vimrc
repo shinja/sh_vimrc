@@ -203,7 +203,8 @@ set foldnestmax=3
 """"""""""""""""""""""""""""""
 "snipmate setup
 """"""""""""""""""""""""""""""
-let g:snippets_dir = '~/.vim/bundle/snipmate/snippets/,~/.vim/bundle/snipmate-snippets/'
+
+" let g:snippets_dir = '~/.vim/bundle/snipmate/snippets/,~/.vim/bundle/snipmate-snippets/' " will cause warning about multiple snippets definition.
 try
   source ~/.vim/bundle/snipmate-snippets/support_functions.vim
 catch
@@ -232,3 +233,14 @@ function! s:SetupSnippets()
       call ExtractSnips("~/vimfiles/snippets/html", "php")
     endtry
 endfunction
+
+""""""""""""""""""""""""""""""
+"TagBar
+""""""""""""""""""""""""""""""
+"ctags -R --c++-kinds=+p --fields=+iaS --extra=+q;
+let $kernel_version=system('uname -r | tr -d "\n"')
+set tags+=/lib/modules/$kernel_version/build/tags,/usr/include/tags
+let g:tagbar_width = 35
+nmap <F6> :TagbarToggle<CR> 
+
+
