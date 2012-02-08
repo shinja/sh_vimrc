@@ -23,10 +23,27 @@ set history=200
 "set scrolloff=5                 " keep at least 5 lines above/below cursor
 "set sidescrolloff=5             " keep at least 5 columns left/right of cursor
 
+
+"--------------------------------------------------------------------------- 
+" Tip #382: Search for <cword> and replace with input() in all open buffers 
+"--------------------------------------------------------------------------- 
+fun! Replace() 
+    let s:word = input("Replace " . expand('<cword>') . " with:") 
+    :exe 'bufdo! %s/\<' . expand('<cword>') . '\>/' . s:word . '/ge' 
+    :unlet! s:word 
+endfun 
+
+"--------------------------------------------------------------------------- 
+" USEFUL SHORTCUTS
+"--------------------------------------------------------------------------- 
+
 " With a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
 let mapleader = ","
 let g:mapleader = ","
+
+"replace the current 'WORD' in all opened buffers
+map <leader>r :call Replace()<CR>
 
 " ,p toggles paste mode
 nmap <leader>p :set paste!<BAR>set paste?<CR>
@@ -39,6 +56,36 @@ map <leader>e :e! ~/.vimrc<cr>
 
 " When vimrc is edited, reload it
 autocmd! bufwritepost vimrc source ~/.vimrc
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Moving around, tabs and buffers
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Smart way to move btw. windows
+"map <C-j> <C-W>j
+"map <C-k> <C-W>k
+"map <C-h> <C-W>h
+"map <C-l> <C-W>l
+
+" --- move around splits {
+" move to and maximize the below split 
+map <C-J> <C-W>j<C-W>_
+" move to and maximize the above split 
+map <C-K> <C-W>k<C-W>_
+" move to and maximize the left split 
+nmap <c-h> <c-w>h<c-w><bar>
+" move to and maximize the right split  
+nmap <c-l> <c-w>l<c-w><bar>
+set wmw=0                     " set the min width of a window to 0 so we can maximize others 
+set wmh=0                     " set the min height of a window to 0 so we can maximize others
+" }
+
+" Use the arrows to something usefull, right left
+map <right> :bn<cr>
+map <left> :bp<cr>
+
+" When pressing <leader>cd switch to the directory of the open buffer
+map <leader>cd :cd %:p:h<cr>
+
 
 "---------------------------------------------------------------------------
 " ENCODING SETTINGS
@@ -152,22 +199,6 @@ set si "Smart indet
 "set nowrap 							"不自动换行
 set wrap "Wrap lines
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Moving around, tabs and buffers
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Smart way to move btw. windows
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
-
-" Use the arrows to something usefull, right left
-map <right> :bn<cr>
-map <left> :bp<cr>
-
-" When pressing <leader>cd switch to the directory of the open buffer
-map <leader>cd :cd %:p:h<cr>
-
 """"""""""""""""""""""""""""""
 "MRU plugin
 """"""""""""""""""""""""""""""
@@ -268,4 +299,20 @@ autocmd BufRead,BufNew :call UMiniBufExplorer
 
 map <leader>u :TMiniBufExplorer<cr>
 
+""""""""""""""""""""""""""""""
+"NERDTree plugin
+""""""""""""""""""""""""""""
+let NERDTreeWinPos = "left" "where NERD tree window is placed on the
+let NERDTreeWinSize = 30 "size of the NERD treea
+"Open and close the NERD_tree.vim separately
+nmap <F5> <ESC>:NERDTreeToggle<CR>
+
+"Q. How can I open a NERDTree automatically when vim starts up?
+autocmd vimenter * NERDTree
+
+"Q. How can I open a NERDTree automatically when vim starts up if no files were specified?
+autocmd vimenter * if !argc() | NERDTree | endif
+
+"Q. How can I close vim if the only window left open is a NERDTree?
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
