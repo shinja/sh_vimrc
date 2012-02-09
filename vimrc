@@ -75,8 +75,8 @@ map <C-K> <C-W>k<C-W>_
 nmap <c-h> <c-w>h<c-w><bar>
 " move to and maximize the right split  
 nmap <c-l> <c-w>l<c-w><bar>
-set wmw=0                     " set the min width of a window to 0 so we can maximize others 
-set wmh=0                     " set the min height of a window to 0 so we can maximize others
+" set wmw=0                     " set the min width of a window to 0 so we can maximize others 
+" set wmh=0                     " set the min height of a window to 0 so we can maximize others
 " }
 
 " Use the arrows to something usefull, right left
@@ -237,34 +237,34 @@ set foldnestmax=3
 """"""""""""""""""""""""""""""
 
 " let g:snippets_dir = '~/.vim/bundle/snipmate/snippets/,~/.vim/bundle/snipmate-snippets/' " will cause warning about multiple snippets definition.
-try
-  source ~/.vim/bundle/snipmate-snippets/support_functions.vim
-catch
-endtry
-autocmd vimenter * call s:SetupSnippets()
-function! s:SetupSnippets()
-
-    "if we're in a rails env then read in the rails snippets
-    if filereadable("./config/environment.rb")
-      try
-        call ExtractSnips("~/.vim/snippets/ruby-rails", "ruby")
-        call ExtractSnips("~/.vim/snippets/eruby-rails", "eruby")
-      catch
-        call ExtractSnips("~/vimfiles/snippets/ruby-rails", "ruby")
-        call ExtractSnips("~/vimfiles/snippets/eruby-rails", "eruby")
-      endtry
-    endif
-
-    try
-      call ExtractSnips("~/.vim/snippets/html", "eruby")
-      call ExtractSnips("~/.vim/snippets/html", "xhtml")
-      call ExtractSnips("~/.vim/snippets/html", "php")
-    catch
-      call ExtractSnips("~/vimfiles/snippets/html", "eruby")
-      call ExtractSnips("~/vimfiles/snippets/html", "xhtml")
-      call ExtractSnips("~/vimfiles/snippets/html", "php")
-    endtry
-endfunction
+" try
+"   source ~/.vim/bundle/snipmate-snippets/support_functions.vim
+" catch
+" endtry
+" autocmd vimenter * call s:SetupSnippets()
+" function! s:SetupSnippets()
+" 
+"     "if we're in a rails env then read in the rails snippets
+"     if filereadable("./config/environment.rb")
+"       try
+"         call ExtractSnips("~/.vim/snippets/ruby-rails", "ruby")
+"         call ExtractSnips("~/.vim/snippets/eruby-rails", "eruby")
+"       catch
+"         call ExtractSnips("~/vimfiles/snippets/ruby-rails", "ruby")
+"         call ExtractSnips("~/vimfiles/snippets/eruby-rails", "eruby")
+"       endtry
+"     endif
+" 
+"     try
+"       call ExtractSnips("~/.vim/snippets/html", "eruby")
+"       call ExtractSnips("~/.vim/snippets/html", "xhtml")
+"       call ExtractSnips("~/.vim/snippets/html", "php")
+"     catch
+"       call ExtractSnips("~/vimfiles/snippets/html", "eruby")
+"       call ExtractSnips("~/vimfiles/snippets/html", "xhtml")
+"       call ExtractSnips("~/vimfiles/snippets/html", "php")
+"     endtry
+" endfunction
 
 """"""""""""""""""""""""""""""
 "TagBar
@@ -382,3 +382,18 @@ endif
 endfunction
 nnoremap <F7> :QFix<CR>
 
+""""""""""""""""""""""""""""""
+" TComment plugin
+""""""""""""""""""""""""""""""
+map <C-/> <c-_><c-_>
+" Primary key maps:
+" 
+"     <c-_><c-_>   :: :TComment
+"     <c-_><space> :: :TComment <QUERY COMMENT-BEGIN ?COMMENT-END>
+"     <c-_>b       :: :TCommentBlock
+"     <c-_>a       :: :TCommentAs <QUERY COMMENT TYPE>
+"     <c-_>n       :: :TCommentAs &filetype <QUERY COUNT>
+"     <c-_>s       :: :TCommentAs &filetype_<QUERY COMMENT SUBTYPE>
+"     <c-_>i       :: :TCommentInline
+"     <c-_>r       :: :TCommentRight
+"     <c-_>p       :: Comment the current inner paragraph
