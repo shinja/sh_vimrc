@@ -19,7 +19,7 @@ filetype indent on
 set nu
 set autoread
 set history=200
-
+set cursorline        " highlight current line"
 "set scrolloff=5                 " keep at least 5 lines above/below cursor
 "set sidescrolloff=5             " keep at least 5 columns left/right of cursor
 
@@ -119,7 +119,9 @@ endfun
 " Set 7 lines to the curors - when moving vertical..
 set so=7
 
-set wildmenu "Turn on WiLd menu
+set wildmode=list:longest   "make cmdline tab completion similar to bash
+set wildmenu                "enable ctrl-n and ctrl-p to scroll thru matches
+set wildignore=*.o,*.obj,*~ "stuff to ignore when tab completing
 
 set ruler "Always show current position
 
@@ -311,7 +313,7 @@ let NERDTreeWinSize = 30 "size of the NERD treea
 nmap <F5> <ESC>:NERDTreeToggle<CR>
 
 "Q. How can I open a NERDTree automatically when vim starts up?
-autocmd vimenter * NERDTree
+" autocmd vimenter * NERDTree
 
 "Q. How can I open a NERDTree automatically when vim starts up if no files were specified?
 autocmd vimenter * if !argc() | NERDTree | endif
@@ -401,7 +403,7 @@ nnoremap <F7> :QFix<CR>
 """"""""""""""""""""""""""""""
 " TComment plugin
 """"""""""""""""""""""""""""""
-map <C-/> <c-_><c-_>
+map <C-/> :TComment<cr>
 " Primary key maps:
 " 
 "     <c-_><c-_>   :: :TComment
@@ -433,4 +435,5 @@ hi link EasyMotionShade  Comment
 " 
 " g:sparkupNextMapping (Default: '<c-n>') -
 "   Mapping used to jump to the next empty tag/attribute.
+
 
