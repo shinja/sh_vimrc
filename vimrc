@@ -143,6 +143,7 @@ set magic "Set magic on, for regular expressions
 
 set showmatch "Show matching bracets when text indicator is over them. Cursor shows matching ) and }
 set showmode
+set showcmd
 set mat=2 "How many tenths of a second to blink
 
 " No sound on errors
@@ -271,8 +272,9 @@ endfunction
 "ctags -R --c++-kinds=+p --fields=+iaS --extra=+q;
 let $kernel_version=system('uname -r | tr -d "\n"')
 set tags+=/lib/modules/$kernel_version/build/tags,/usr/include/tags
-let g:tagbar_width = 35
-nmap <F6> :TagbarToggle<CR> 
+let g:tagbar_width = 30
+let g:tagbar_autofocus = 1
+nnoremap <silent> <F6> :TagbarToggle<CR>
 
 """"""""""""""""""""""
 "minibufexpl
@@ -315,4 +317,68 @@ autocmd vimenter * if !argc() | NERDTree | endif
 
 "Q. How can I close vim if the only window left open is a NERDTree?
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+"""""""""""""""""""""""""""""
+" Cscope setting
+"""""""""""""""""""""""""""""
+"move cursor on the word, and press ctrl+@+s|g|c...
+"查找声明
+nmap <C-@>s :cs find s <C-R>=expand("<cword>")<CR><CR> 
+"查找定义
+nmap <C-@>g :cs find g <C-R>=expand("<cword>")<CR><CR> 
+"查找调用
+nmap <C-@>c :cs find c <C-R>=expand("<cword>")<CR><CR> 
+"查找指定的字符串
+nmap <C-@>t :cs find t <C-R>=expand("<cword>")<CR><CR> 
+"查找egrep模式，相当于egrep功能，但查找速度快多了
+nmap <C-@>e :cs find e <C-R>=expand("<cword>")<CR><CR> 
+"查找文件
+nmap <C-@>f :cs find f <C-R>=expand("<cfile>")<CR><CR> 
+"查找包含本文件的文件
+nmap <C-@>i :cs find i <C-R>=expand("<cfile>")<CR><CR> 
+"查找本函数调用的函数
+nmap <C-@>d :cs find d <C-R>=expand("<cword>")<CR><CR> 
+
+"find ./ -name "*.c" -or -name "*.h" -or -name "*.cpp" -or -name "*.S" | "cscope -Rkbq
+"-R: 在生成索引文件时，搜索子目录树中的代码
+"-b: 只生成索引文件，不进入cscope的界面
+"-k: 在生成索引文件时，不搜索/usr/include目录
+"-q: 生成cscope.in.out和cscope.po.out文件，加快cscope的索引速度
+
+if has("cscope")
+	set csprg=/usr/bin/cscope
+	set csto=0
+	set cst
+	set nocsverb
+	" add any database in current directory
+	if filereadable("cscope.out")
+		cs add cscope.out
+	" else add database pointed to by environment
+	elseif $CSCOPE_DB != ""
+		cs add $CSCOPE_DB
+	endif
+	set csverb
+	set cscopetag
+	"this option seems inference the behavior of tags ctrl+] and ctrl+t
+	"so I mark it up
+	" set cscopequickfix=s-,g-,c-,d-,t-,e-,f-,i-
+
+	" http://www.chongtang.me/index.php/1081
+	 set cscopequickfix=s-,c-,d-,t-,e-,i-
+endif
+
+"""""""""""""""""""""""""""""
+" QUICKFIX WINDOW
+"""""""""""""""""""""""""""""
+command -bang -nargs=? QFix call QFixToggle(<bang>0)
+function! QFixToggle(forced)
+if exists("g:qfix_win") && a:forced == 0
+cclose
+unlet g:qfix_win
+else
+botright copen	8 
+let g:qfix_win = bufnr("$")
+endif
+endfunction
+nnoremap <F7> :QFix<CR>
 
