@@ -370,7 +370,22 @@ endif
 """""""""""""""""""""""""""""
 " QUICKFIX WINDOW
 """""""""""""""""""""""""""""
-command -bang -nargs=? QFix call QFixToggle(<bang>0)
+
+" Use a bang in command and function definitions!
+" Function and command definitions using Vim’s :command and :function built-ins should include a bang (!) symbol, otherwise Vim will complain that the command or function already exists:
+" 
+"     " Bad:
+"     :command MyCmd call MyFun()
+"     :function MyFun()
+"     :endfunction
+"      
+"     " Good:
+"     :command! MyCmd call MyFun()
+"     :function! MyFun()
+"     :endfunction
+"     #
+
+command! -bang -nargs=? QFix call QFixToggle(<bang>0)
 function! QFixToggle(forced)
 if exists("g:qfix_win") && a:forced == 0
 cclose
@@ -397,3 +412,12 @@ map <C-/> <c-_><c-_>
 "     <c-_>i       :: :TCommentInline
 "     <c-_>r       :: :TCommentRight
 "     <c-_>p       :: Comment the current inner paragraph
+
+
+""""""""""""""""""""""""""""""
+" EasyMotion
+""""""""""""""""""""""""""""""
+let g:EasyMotion_leader_key = '<Leader>m' " default is <Leader><Leader>
+hi link EasyMotionTarget ErrorMsg
+hi link EasyMotionShade  Comment
+
