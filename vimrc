@@ -23,7 +23,6 @@ set history=200
 "set scrolloff=5                 " keep at least 5 lines above/below cursor
 "set sidescrolloff=5             " keep at least 5 columns left/right of cursor
 
-
 "--------------------------------------------------------------------------- 
 " Tip #382: Search for <cword> and replace with input() in all open buffers 
 "--------------------------------------------------------------------------- 
@@ -57,6 +56,9 @@ map <leader>e :e! ~/.vimrc<cr>
 " When vimrc is edited, reload it
 autocmd! bufwritepost vimrc source ~/.vimrc
 
+"将当前文本转换为16进制格式。
+nmap <leader>x :%!xxd<cr>
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, tabs and buffers
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -85,7 +87,6 @@ map <left> :bp<cr>
 
 " When pressing <leader>cd switch to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>
-
 
 "---------------------------------------------------------------------------
 " ENCODING SETTINGS
@@ -420,4 +421,16 @@ map <C-/> <c-_><c-_>
 let g:EasyMotion_leader_key = '<Leader>m' " default is <Leader><Leader>
 hi link EasyMotionTarget ErrorMsg
 hi link EasyMotionShade  Comment
+
+""""""""""""""""""""""""""""""
+" sparkup
+""""""""""""""""""""""""""""""
+" g:sparkupArgs (Default: '--no-last-newline') -
+"   Additional args passed to sparkup.
+" 
+" g:sparkupExecuteMapping (Default: '<c-e>') -
+"   Mapping used to execute sparkup.
+" 
+" g:sparkupNextMapping (Default: '<c-n>') -
+"   Mapping used to jump to the next empty tag/attribute.
 
