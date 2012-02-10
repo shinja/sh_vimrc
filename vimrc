@@ -59,6 +59,22 @@ autocmd! bufwritepost vimrc source ~/.vimrc
 "将当前文本转换为16进制格式。
 nmap <leader>x :%!xxd<cr>
 
+inoremap ( ()<ESC>i
+inoremap ) <c-r>=ClosePair(')')<CR>
+inoremap { {}<ESC>i
+inoremap } <c-r>=ClosePair('}')<CR>
+inoremap [ []<ESC>i
+inoremap ] <c-r>=ClosePair(']')<CR>
+inoremap < <><ESC>i
+inoremap > <c-r>=ClosePair('>')<CR>
+
+function ClosePair(char)
+    if getline('.')[col('.') - 1] == a:char
+        return "\<Right>"
+    else
+        return a:char
+    endif
+endf
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, tabs and buffers
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -512,3 +528,13 @@ let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
 let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => surrounds
+" http://net.tutsplus.com/tutorials/other/vim-essential-plugin-surround/
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"viw + s" (selecte a word, and 's'urround with  "
+"cst (change surround tag)
+"dst (delete surround tag)
+
+
