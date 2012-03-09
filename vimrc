@@ -256,6 +256,7 @@ set foldnestmax=3
 """"""""""""""""""""""""""""""
 
 " let g:snippets_dir = '~/.vim/bundle/snipmate/snippets/,~/.vim/bundle/snipmate-snippets/' " will cause warning about multiple snippets definition.
+" let g:snippets_dir = '~/.vim/bundle/snipmate-snippets/' " will cause warning about multiple snippets definition.
 " try
 "   source ~/.vim/bundle/snipmate-snippets/support_functions.vim
 " catch
