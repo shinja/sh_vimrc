@@ -59,22 +59,30 @@ autocmd! bufwritepost vimrc source ~/.vimrc
 "将当前文本转换为16进制格式。
 nmap <leader>x :%!xxd<cr>
 
-inoremap ( ()<ESC>i
-inoremap ) <c-r>=ClosePair(')')<CR>
-inoremap { {}<ESC>i
-inoremap } <c-r>=ClosePair('}')<CR>
-inoremap [ []<ESC>i
-inoremap ] <c-r>=ClosePair(']')<CR>
-inoremap < <><ESC>i
-inoremap > <c-r>=ClosePair('>')<CR>
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => AutoClose--Alves
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:AutoCloseProtectedRegions = ["Comment", "String", "Character"]
+let g:AutoClosePairs = {'(': ')', '{': '}', '[': ']', '"': '"', "'": "'"}
 
-function ClosePair(char)
-    if getline('.')[col('.') - 1] == a:char
-        return "\<Right>"
-    else
-        return a:char
-    endif
-endf
+"Replaced whit the plugin AutoClose--Alves
+" inoremap ( ()<ESC>i
+" inoremap ) <c-r>=ClosePair(')')<CR>
+" inoremap { {}<ESC>i
+" inoremap } <c-r>=ClosePair('}')<CR>
+" inoremap [ []<ESC>i
+" inoremap ] <c-r>=ClosePair(']')<CR>
+" inoremap < <><ESC>i
+" inoremap > <c-r>=ClosePair('>')<CR>
+" 
+" function ClosePair(char)
+"     if getline('.')[col('.') - 1] == a:char
+"         return "\<Right>"
+"     else
+"         return a:char
+"     endif
+" endf
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, tabs and buffers
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -537,5 +545,3 @@ let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
 "viw + s" (selecte a word, and 's'urround with  "
 "cst (change surround tag)
 "dst (delete surround tag)
-
-

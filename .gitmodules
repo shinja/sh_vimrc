@@ -34,3 +34,6 @@
 [submodule "bundle/neocomplcache"]
 	path = bundle/neocomplcache
 	url = https://github.com/Shougo/neocomplcache.git
+[submodule "bundle/AutoClose--Alves"]
+	path = bundle/AutoClose--Alves
+	url = https://github.com/vim-scripts/AutoClose--Alves.git
