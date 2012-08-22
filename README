@@ -2,8 +2,8 @@
 
 git clone https://github.com/shinja/sh_vimrc.git 
 
-ln -s ~/.vimrc PATH_TO_sh_vimrc/vimrc
-ln -s ~/.vim PATH_TO_sh_vimrc
+ln -s PATH_TO_sh_vimrc/vimrc ~/.vimrc 
+ln -s PATH_TO_sh_vimrc ~/.vim 
 
 git submodule init
 git submodule update
