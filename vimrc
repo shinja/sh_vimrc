@@ -15,6 +15,9 @@ syntax on
 filetype plugin on
 filetype indent on
 
+let g:pydiction_location = '$HOME/.vim/bundle/pydiction/complete-dict'
+let g:pydiction_menu_height = 20
+
 " Set to auto read when a file is changed from the outside
 set nu
 set autoread
